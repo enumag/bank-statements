@@ -113,8 +113,8 @@ class ABOParser extends Parser
     protected function getLineType($line)
     {
         /**
-         * All messages (lines with code 078 and 079) are valid only for domestic payments where the whole line is
-         * message only. In foreign payments those lines contains different values.
+         * All messages (lines with code 078 and 079) are valid only for domestic payments where the line is just a message.
+         * In foreign payments those lines contains different values. This is not implemented.
          * See: https://www.csob.cz/portal/documents/10710/1927786/format-gpc.pdf
          */
 
