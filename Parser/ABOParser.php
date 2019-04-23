@@ -297,7 +297,7 @@ class ABOParser extends Parser
      * 1  | Type of record          | F  | 3  | 076
      * 2  | Transfer identification | F  | 26 | AAAAAAAAAAAAAAAAAAAAAAAAAA |
      * 3  | Deduction date          | F  | 6  | ddmmyy                     |
-     * 4  |Counter-party Name       | F  | 13 | A(92)                      |
+     * 4  | Counter-party Name      | F  | 13 | A(92)                      |
      * 15 | End-of-record character | F  | 2  | CR LF                      |
      *
      * @param string $line
