@@ -57,7 +57,6 @@ abstract class Parser implements ParserInterface
         return new Transaction();
     }
 
-    /** Get a new instance of additionalInformation class */
     protected function getAdditionalInformationClass(): AdditionalInformation
     {
         return new AdditionalInformation();
