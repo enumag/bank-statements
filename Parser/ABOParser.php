@@ -91,7 +91,7 @@ class ABOParser extends Parser
                         $transaction->setMessageStart($messageStart);
                         break;
                     case self::LINE_TYPE_MESSAGE_END:
-                        $messageEnd = rtrim(substr($line,3));
+                        $messageEnd = rtrim(substr($line, 3));
                         $transaction->setMessageEnd($messageEnd);
                         break;
                 }
