@@ -139,7 +139,7 @@ class ABOParser extends Parser
     {
         /**
          * All messages (lines with code 078 and 079) are valid only for domestic payments where the line is just a message.
-         * For foreign payments those lines contains different values. This is not implemented.
+         * For foreign payments those lines contain different values. This is not implemented.
          */
 
         switch (substr($line, 0, 3)) {
