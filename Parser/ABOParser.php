@@ -3,6 +3,7 @@
 namespace JakubZapletal\Component\BankStatement\Parser;
 
 use DateTimeImmutable;
+use Exception;
 use JakubZapletal\Component\BankStatement\Statement\Statement;
 use JakubZapletal\Component\BankStatement\Statement\Transaction\AdditionalInformation;
 use JakubZapletal\Component\BankStatement\Statement\Transaction\Transaction;
@@ -27,6 +28,27 @@ class ABOParser extends Parser
     const POSTING_CODE_CREDIT          = 2;
     const POSTING_CODE_DEBIT_REVERSAL  = 4;
     const POSTING_CODE_CREDIT_REVERSAL = 5;
+
+    private const CURRENCIES = [
+        ['00036', 'AUD'],
+        ['00124', 'CAD'],
+        ['00156', 'CNY'],
+        ['00203', 'CZK'],
+        ['00208', 'DKK'],
+        ['00978', 'EUR'],
+        ['00826', 'GBP'],
+        ['00191', 'HRK'],
+        ['00348', 'HUF'],
+        ['00756', 'CHF'],
+        ['00392', 'JPY'],
+        ['00578', 'NOK'],
+        ['00985', 'PLN'],
+        ['00946', 'RON'],
+        ['00643', 'RUB'],
+        ['00752', 'SEK'],
+        ['00949', 'TRY'],
+        ['00840', 'USD'],
+    ];
 
     /**
      * @param string $filePath
@@ -282,6 +304,10 @@ class ABOParser extends Parser
         $dateCreated = \DateTimeImmutable::createFromFormat('dmyHis', $date . '120000');
         $transaction->setDateCreated($dateCreated);
 
+        # Currency
+        $currencyCode = substr($line, 117, 5);
+        $currency = $this->findCurrencyByCode($currencyCode);
+        $transaction->setCurrency($currency);
         return $transaction;
     }
 
@@ -315,5 +341,17 @@ class ABOParser extends Parser
         $additionalInformation->setCounterPartyName($counterPartyName);
 
         return $additionalInformation;
+    }
+
+    /** @throws Exception */
+    private function findCurrencyByCode(string $currencyCode): string {
+        /** @var string[] $currency */
+        foreach (self::CURRENCIES as $currency) {
+            if ($currency[0] === $currencyCode) {
+                return $currency[1];
+            }
+        }
+
+        throw new Exception('Unknown currency with code ' . $currencyCode);
     }
 }
