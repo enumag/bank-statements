@@ -351,7 +351,8 @@ class ABOParser extends Parser
      * @throws Exception
      * @return string
      */
-    private function findCurrencyByCode(string $currencyCode): string {
+    private function findCurrencyByCode(string $currencyCode): string
+    {
         if (!array_key_exists($currencyCode, self::CURRENCIES)) {
             throw new Exception('Unknown currency with code ' . $currencyCode);
         }
