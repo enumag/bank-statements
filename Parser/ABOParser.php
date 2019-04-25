@@ -55,6 +55,7 @@ class ABOParser extends Parser
      *
      * @return Statement
      * @throws \RuntimeException
+     * @throws Exception
      */
     public function parseFile($filePath)
     {
@@ -68,6 +69,7 @@ class ABOParser extends Parser
      *
      * @return Statement
      * @throws \InvalidArgumentException
+     * @throws Exception
      */
     public function parseContent($content)
     {
@@ -83,7 +85,7 @@ class ABOParser extends Parser
 
     /**
      * @param \SplFileObject $fileObject
-     *
+     * @throws Exception
      * @return Statement
      */
     protected function parseFileObject(\SplFileObject $fileObject)
@@ -129,7 +131,8 @@ class ABOParser extends Parser
 
     /**
      * @param string $line
-     * @throws \Exception
+     * @throws Exception
+     * @return string|null
      */
     /** @noinspection PhpInconsistentReturnPointsInspection */
     protected function getLineType($line)
@@ -249,7 +252,7 @@ class ABOParser extends Parser
      * 15 | Posting date              |  F  | 123 | 4   | ddmmyy  | N
      *
      * @param string $line
-     *
+     * @throws Exception
      * @return Transaction
      */
     protected function parseTransactionLine($line)
