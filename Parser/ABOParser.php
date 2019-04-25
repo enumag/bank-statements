@@ -30,24 +30,24 @@ class ABOParser extends Parser
     const POSTING_CODE_CREDIT_REVERSAL = 5;
 
     private const CURRENCIES = [
-        ['00036', 'AUD'],
-        ['00124', 'CAD'],
-        ['00156', 'CNY'],
-        ['00203', 'CZK'],
-        ['00208', 'DKK'],
-        ['00978', 'EUR'],
-        ['00826', 'GBP'],
-        ['00191', 'HRK'],
-        ['00348', 'HUF'],
-        ['00756', 'CHF'],
-        ['00392', 'JPY'],
-        ['00578', 'NOK'],
-        ['00985', 'PLN'],
-        ['00946', 'RON'],
-        ['00643', 'RUB'],
-        ['00752', 'SEK'],
-        ['00949', 'TRY'],
-        ['00840', 'USD'],
+        '00036' => 'AUD',
+        '00124' => 'CAD',
+        '00156' => 'CNY',
+        '00203' => 'CZK',
+        '00208' => 'DKK',
+        '00978' => 'EUR',
+        '00826' => 'GBP',
+        '00191' => 'HRK',
+        '00348' => 'HUF',
+        '00756' => 'CHF',
+        '00392' => 'JPY',
+        '00578' => 'NOK',
+        '00985' => 'PLN',
+        '00946' => 'RON',
+        '00643' => 'RUB',
+        '00752' => 'SEK',
+        '00949' => 'TRY',
+        '00840' => 'USD',
     ];
 
     /**
@@ -343,15 +343,17 @@ class ABOParser extends Parser
         return $additionalInformation;
     }
 
-    /** @throws Exception */
+    /**
+     * @param string $currencyCode
+     * @throws Exception
+     * @return string
+     */
     private function findCurrencyByCode(string $currencyCode): string {
-        /** @var string[] $currency */
-        foreach (self::CURRENCIES as $currency) {
-            if ($currency[0] === $currencyCode) {
-                return $currency[1];
-            }
+        if (!array_key_exists($currencyCode, self::CURRENCIES)) {
+            throw new Exception('Unknown currency with code ' . $currencyCode);
         }
 
-        throw new Exception('Unknown currency with code ' . $currencyCode);
+        return self::CURRENCIES[$currencyCode];
+
     }
 }
